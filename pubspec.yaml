@@ -1,0 +1,58 @@
+name: lpe_with_source
+description: "Learmond Pay Element with Source - Paysheet built in flutter. Transposable to any app framework."
+version: 0.0.2+4
+homepage: https://thelearmondcorporation.com
+repository: https://github.com/tlearmond1/thelearmondcorporation
+environment:
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: '>=1.10.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^4.0.7
+  paysheet: ^2.0.0+1
+  lpe: ^0.0.10+2
+  #
+  # For details regarding assets in packages, see
+  # https://flutter.dev/to/asset-from-package
+  #
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # To add custom fonts to your package, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts in packages, see
+  flutter_test:
+    sdk: flutter
+  # https://flutter.dev/to/font-from-package
+  
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.learmond.lpe_with_source
+        pluginClass: LearmondNativePayWithSourcePlugin
+      ios:
+        package: com.learmond.lpe_with_source
+        pluginClass: LearmondNativePayWithSourcePlugin
+  assets:
+    - static/assets/GPay_Acceptance_Mark_800.png
+
+dev_dependencies:
+  lints: ^6.0.0

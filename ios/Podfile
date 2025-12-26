@@ -1,0 +1,58 @@
+platform :ios, '13.0'
+
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root_from_generated
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'))
+  return nil unless File.exist?(generated_xcode_build_settings_path)
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT=(.*)/)
+    return matches[1].strip if matches
+  end
+  nil
+end
+
+def flutter_root_from_env_or_which
+  return ENV['FLUTTER_ROOT'] if ENV['FLUTTER_ROOT'] && !ENV['FLUTTER_ROOT'].empty?
+  flutter_path = `which flutter`.strip
+  return nil if flutter_path.empty?
+  File.expand_path(File.join(flutter_path, '..', '..'))
+end
+
+flutter_root = flutter_root_from_generated || flutter_root_from_env_or_which
+if flutter_root
+  ENV['FLUTTER_ROOT'] ||= flutter_root
+end
+
+if flutter_root && File.exist?(File.join(flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper'))
+  require File.expand_path(File.join(flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper'))
+else
+  puts "[lpe_with_source] Warning: Flutter pod helper not found; run 'flutter pub get' in an app or set FLUTTER_ROOT."
+end
+
+flutter_application_path = File.expand_path('..', __dir__)
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  if defined?(install_all_flutter_pods)
+    install_all_flutter_pods(flutter_application_path)
+  else
+    puts "[lpe_with_source] install_all_flutter_pods not defined; proceeding without Flutter pods."
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+    end
+  end
+end
