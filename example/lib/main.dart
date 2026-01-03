@@ -4,7 +4,7 @@ import 'package:lpe_with_source/lpe_with_source.dart';
 void main() {
   LpeWithSourceConfig.init(
     appleMerchantId: 'merchant.com.example',
-    googleGatewayMerchantId: 'exampleGatewayId',
+    googleMerchantId: 'exampleGatewayId',
   );
   runApp(const ExampleApp());
 }

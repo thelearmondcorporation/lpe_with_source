@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml:2:13-83
+INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml:2:13-83
+	package
+		INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml
+	xmlns:android
+		ADDED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml:2:23-81
+uses-sdk
+INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml reason: use-sdk injection requested
+INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml
+INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml
+	android:targetSdkVersion
+		INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml
+	android:minSdkVersion
+		INJECTED from /Users/tyreeselearmond/Documents/thelearmondcorporation/LearmondPayElement/LPE-dart/packages/lpe_with_source/android/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2102861573946691869.xml

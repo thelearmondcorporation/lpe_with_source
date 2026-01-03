@@ -8,6 +8,5 @@ library lpe_with_source;
 // `paysheet` package endpoints and provides a `presentPaysheet`
 // convenience wrapper which callers can use to present the UI.
 export 'lpe_config_with_source.dart' show LpeWithSourceConfig;
-export 'paysheet.dart'
-    show presentPaysheet, showLpePaysheet, StripePaymentResult;
+export 'package:paysheet/paysheet.dart' show Paysheet, PaymentResult;
 export 'source_pay_button.dart' show Source;

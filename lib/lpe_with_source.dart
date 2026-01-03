@@ -12,17 +12,17 @@
 /// ```dart
 /// const LearmondPayButtons({
 ///   Key? key,
-///   String? publishableKey,
+///   String? apiKey,
 ///   String? clientSecret,
 ///   String? merchantId,
 ///   Map<String,dynamic>? merchantArgs,
 ///   String? merchantName,
 ///   String? merchantInfo,
 ///   List<SummaryLineItem>? summaryItems,
-///   String? googleGatewayMerchantId,
+///   String? googleMerchantId,
 ///   String amount = '0.00',
 ///   String currency = 'USD',
-///   void Function(StripePaymentResult)? onResult,
+///   void Function(PaymentResult)? onResult,
 ///   bool showNativePay = true,
 ///   ButtonStyle? buttonStyle,
 /// })
@@ -42,8 +42,6 @@ library lpe_with_source;
 
 export 'src/lpe_with_source.dart';
 export 'src/lpe_config_with_source.dart' show LpeWithSourceConfig;
-export 'src/paysheet.dart'
-    show presentPaysheet, showLpePaysheet, StripePaymentResult;
 export 'src/source_pay_button.dart' show Source, SourcePayButton;
 
 /// Re-export the `LearmondPayButtons` widget from the `lpe` package so
@@ -53,5 +51,4 @@ export 'package:lpe/lpe.dart' show LearmondPayButtons;
 
 /// Also re-export the underlying `paysheet` package so callers can access
 /// its public types and helpers directly from this package root.
-export 'package:paysheet/paysheet.dart'
-    show showLpePaysheet, StripePaymentResult;
+export 'package:paysheet/paysheet.dart' show Paysheet, PaymentResult;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'paysheet.dart' show presentPaysheet, StripePaymentResult;
+import 'package:paysheet/paysheet.dart' show Paysheet, PaymentResult;
 
 /// A small, reusable Source Pay button.
 class SourcePayButton extends StatefulWidget {
@@ -7,14 +7,14 @@ class SourcePayButton extends StatefulWidget {
   final ButtonStyle style;
   final double minWidth;
   final double height;
-  final String? publishableKey;
+  final String? apiKey;
   final String? totalPriceLabel;
   final String method;
   final String? amount;
   final String? clientSecret;
   final Map<String, dynamic>? merchantArgs;
   final bool enableStripeJs;
-  final void Function(StripePaymentResult?)? onResult;
+  final void Function(PaymentResult?)? onResult;
 
   const SourcePayButton({
     super.key,
@@ -22,9 +22,9 @@ class SourcePayButton extends StatefulWidget {
     required this.style,
     this.minWidth = 68.0,
     this.height = 36.0,
-    this.publishableKey,
+    this.apiKey,
     this.totalPriceLabel,
-    this.method = 'card',
+    this.method = 'source_pay',
     this.amount,
     this.clientSecret,
     this.merchantArgs,
@@ -43,17 +43,11 @@ class _SourcePayButtonState extends State<SourcePayButton> {
   }
 
   Future<void> _handlePressed() async {
-    final pk =
-        widget.publishableKey ?? Source.present.defaultPublishableKey ?? '';
-
-    final result = await presentPaysheet(
+    final result = await Paysheet.instance.present(
       context,
-      publishableKey: pk,
-      clientSecret: widget.clientSecret,
       method: widget.method,
       amount: widget.amount,
       merchantArgs: widget.merchantArgs,
-      totalPriceLabel: widget.totalPriceLabel,
       enableStripeJs: widget.enableStripeJs,
     );
 
@@ -118,8 +112,8 @@ class Source {
   ButtonStyle defaultStyle;
 
   /// Optional package-level default publishable key used by the source button
-  /// when callers do not pass an explicit `publishableKey`.
-  String? defaultPublishableKey;
+  /// when callers do not pass an explicit `apiKey`.
+  String? defaultapiKey;
 
   /// Returns a `SourcePayButton` built with the instance `defaultStyle`.
   Widget sourcePayButton({

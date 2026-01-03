@@ -27,7 +27,7 @@ import 'package:lpe_with_source/lpe_with_source.dart';
 ```dart
 final result = await LearmondPaySheet.show(
   context: context,
-  publishableKey: 'your_publishable_key',
+  apiKey: 'your_publishable_key',
   clientSecret: 'your_client_secret',
   method: 'card', // or 'us_bank', 'eu_bank', 'apple_pay', 'google_pay'
   title: 'Pay \$10.00',
@@ -43,12 +43,12 @@ For most apps we recommend embedding the `LearmondPayButtons` widget directly in
 
 ```dart
 LearmondPayButtons(
-  publishableKey: 'pk_test_...', // optional fallback
+  apiKey: 'pk_test_...', // optional fallback
   clientSecret: 'pi_test_client_secret', // optional
   merchantId: 'merchant.com.yourdomain', // required for Apple Pay
   amount: '10.00',
   currency: 'USD',
-  onResult: (StripePaymentResult r) {
+  onResult: (PaymentResult r) {
     if (r.success) {
       // Handle success (r.paymentIntentId or r.rawResult)
     } else {
@@ -60,16 +60,16 @@ LearmondPayButtons(
 
 Notes:
 - The widget uses a responsive layout (three buttons on the first row, two centered buttons on the second row) and keeps consistent button sizing.
-- Use `onResult` to process the returned `StripePaymentResult` whether the flow was web-based (card/bank) or native (apple/google). Native flows return raw tokens in `result.rawResult` which you MUST send to your server for verification.
+- Use `onResult` to process the returned `PaymentResult` whether the flow was web-based (card/bank) or native (apple/google). Native flows return raw tokens in `result.rawResult` which you MUST send to your server for verification.
 - Do not rely on client-supplied amounts — always verify amounts server-side.
 
 ### Source button (styling-only) — new
 
 This package also exposes a lightweight, styling-focused Source button API intended for apps that only want to present a consistent pay button and let the paysheet implementation handle the presentation.
 
-- `Source.present`: a single mutable singleton that holds defaults used by the factory and buttons (for example `Source.present.defaultStyle` and `Source.present.defaultPublishableKey`).
+- `Source.present`: a single mutable singleton that holds defaults used by the factory and buttons (for example `Source.present.defaultStyle` and `Source.present.defaultapiKey`).
 - `Source.present.source_pay_button()`: a small factory that returns a `SourcePayButton` built with the singleton `defaultStyle`.
-- `SourcePayButton`: the full widget you can instantiate when you need to pass per-button configuration such as `publishableKey`, `clientSecret`, `amount`, or `merchantArgs` (line items).
+- `SourcePayButton`: the full widget you can instantiate when you need to pass per-button configuration such as `apiKey`, `clientSecret`, `amount`, or `merchantArgs` (line items).
 
 Examples
 
@@ -77,7 +77,7 @@ Examples
 
 ```dart
 // optionally set a default publishable key at app init or from a text field
-Source.present.defaultPublishableKey = 'pk_test_...';
+Source.present.defaultapiKey = 'pk_test_...';
 
 // place the factory button in your UI
 Source.present.source_pay_button();
@@ -97,14 +97,14 @@ SourcePayButton(
       {'label': 'Shipping', 'amountCents': 500},
     ],
   },
-  onResult: (result) { /* handle StripePaymentResult */ },
+  onResult: (result) { /* handle PaymentResult */ },
 )
 ```
 
 Notes:
 - To show Line Items in native pay (Google Pay / Apple Pay) pass `merchantArgs['summaryItems']` as a `List` of maps with `label` (String) and `amountCents` (int). The native bridge will compute totals and render `displayItems` when available.
 - The factory `Source.present.source_pay_button()` is intentionally minimal. If you need to pass `merchantArgs` or per-button overrides, construct a `SourcePayButton` directly as shown above.
-- `presentPaysheet(...)` and `SourcePayButton` no longer require a publishable key; you may pass an empty key or set `Source.present.defaultPublishableKey` as a convenience. The underlying paysheet implementation will decide how to handle an omitted key.
+- `presentPaysheet(...)` and `SourcePayButton` no longer require a publishable key; you may pass an empty key or set `Source.present.defaultapiKey` as a convenience. The underlying paysheet implementation will decide how to handle an omitted key.
 
 ### Embedding `LearmondPayButtons` into your UI (step-by-step)
 
@@ -118,12 +118,12 @@ import 'package:lpe/lpe.dart';
 
 ```dart
 LearmondPayButtons(
-  publishableKey: 'pk_test_...', // optional fallback
+  apiKey: 'pk_test_...', // optional fallback
   clientSecret: 'pi_test_client_secret', // optional (used by web flows)
   merchantId: 'merchant.com.yourdomain', // required for Apple Pay
   amount: '10.00', // display amount; server must verify final amount
   currency: 'USD',
-  onResult: (StripePaymentResult r) {
+  onResult: (PaymentResult r) {
     if (r.success) {
       // Payment succeeded. You may have r.paymentIntentId or r.rawResult (native token)
     } else {
@@ -133,10 +133,10 @@ LearmondPayButtons(
 )
 ```
 
-3) Pass dynamic values from your form (amount, merchantId, publishableKey, clientSecret). If you use `TextField` controllers, call `setState()` in `onChanged` so the widget rebuilds with the latest inputs.
+3) Pass dynamic values from your form (amount, merchantId, apiKey, clientSecret). If you use `TextField` controllers, call `setState()` in `onChanged` so the widget rebuilds with the latest inputs.
 
 4) Handling the `onResult` callback:
-- For web-based card and bank flows `StripePaymentResult` usually includes `success`, `status`, and `paymentIntentId`.
+- For web-based card and bank flows `PaymentResult` usually includes `success`, `status`, and `paymentIntentId`.
 - For native Apple/Google Pay flows the widget returns a `rawResult` containing the device token (Apple: `paymentDataBase64`; Google: `paymentToken`/`paymentDataJson`). **Send these tokens to your server** and finalize the payment there using your payment gateway's API.
 
 5) Apple Pay & Google Pay setup reminders:
@@ -150,7 +150,7 @@ LearmondPayButtons(
    ```dart
    LpeConfig.init(
      appleMerchantId: 'merchant.com.yourdomain',
-     googleGatewayMerchantId: 'yourGatewayMerchantId',
+     googleMerchantId: 'yourMerchantId',
    );
    ```
    If you provide `merchantId` to `LearmondPayButtons` or directly to `LearmondNativePay.showNativePay`, those values take precedence.
@@ -189,7 +189,7 @@ final clientSecret = jsonDecode(resp.body)['client_secret'];
 
 final result = await LearmondPaySheet.show(
   context: context,
-  publishableKey: 'pk_test_...',
+  apiKey: 'pk_test_...',
   clientSecret: clientSecret,
   method: 'card',
   title: 'Pay \$10.00',
@@ -228,7 +228,7 @@ if (!res.success) {
 
 Using `LearmondPayButtons`'s `onResult`
 
-If you embed `LearmondPayButtons`, prefer handling payments in the `onResult` callback — the widget will call the correct flow for each method and return a `StripePaymentResult`. For native flows `r.rawResult` contains the device token to send to your server.
+If you embed `LearmondPayButtons`, prefer handling payments in the `onResult` callback — the widget will call the correct flow for each method and return a `PaymentResult`. For native flows `r.rawResult` contains the device token to send to your server.
 
 ```dart
 LearmondPayButtons(
@@ -370,7 +370,7 @@ void main() {
   // at build/deploy time.
   // LpeConfig.init(
   //   appleMerchantId: 'merchant.com.example',
-  //   googleGatewayMerchantId: 'yourGatewayMerchantId',
+  //   googleMerchantId: 'yourMerchantId',
   // );
   runApp(const MyApp());
 }
@@ -426,7 +426,7 @@ Communication between Flutter and JS is handled via `window.flutter_inappwebview
 
   ```dart
   export 'lpe_config.dart' show LpeConfig;
-  export 'paysheet.dart' show LearmondPaySheet, LearmondNativePay, LearmondPayButtons, StripePaymentResult;
+  export 'paysheet.dart' show LearmondPaySheet, LearmondNativePay, LearmondPayButtons, PaymentResult;
   ```
 
 ## License

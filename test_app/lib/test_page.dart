@@ -22,10 +22,10 @@ class _TestPageState extends State<TestPage> {
   @override
   void initState() {
     super.initState();
-    // Keep Source.present.defaultPublishableKey in sync with the text field.
-    Source.present.defaultPublishableKey = _pkCtrl.text;
+    // Keep Source.present.defaultapiKey in sync with the text field.
+    Source.present.defaultapiKey = _pkCtrl.text;
     _pkCtrl.addListener(() {
-      Source.present.defaultPublishableKey = _pkCtrl.text;
+      Source.present.defaultapiKey = _pkCtrl.text;
     });
   }
 

@@ -16,7 +16,7 @@ import 'package:lpe_with_source/lpe_with_source.dart';
 
 The package re-exports the core paysheet helpers and common widgets:
 - `presentPaysheet(...)` / `showLpePaysheet` — present the paysheet UI (publishable key is optional)
-- `StripePaymentResult` — result type returned from the paysheet
+- `PaymentResult` — result type returned from the paysheet
 - `LearmondPayButtons` — re-exported from `package:lpe` for the single-line pay buttons
 - `Source` and `SourcePayButton` — the styling-first Source button API provided by this package
 
@@ -25,7 +25,7 @@ The package re-exports the core paysheet helpers and common widgets:
 This package exposes a single-instance `Source` helper to provide
 default styles and convenience factories:
 
-- `Source.present` — mutable singleton with `defaultStyle` and `defaultPublishableKey`.
+- `Source.present` — mutable singleton with `defaultStyle` and `defaultapiKey`.
 - `Source.present.source_pay_button()` — returns a `SourcePayButton` built with the singleton defaults.
 
 If you need per-button overrides, instantiate `SourcePayButton` directly:
@@ -58,7 +58,7 @@ If you want the bundled single-line pay buttons, you can import and use
 ```dart
 LearmondPayButtons(
 	amount: '9.99',
-	onResult: (r) { /* handle StripePaymentResult */ },
+	onResult: (r) { /* handle PaymentResult */ },
 )
 ```
 

@@ -238,14 +238,14 @@ class LearmondNativePayWithSourcePlugin: FlutterPlugin, MethodCallHandler, Activ
 
       val tokenizationSpec = JSONObject()
       val gateway = (args["gateway"] as? String)?.lowercase() ?: ""
-      val publishableKey = (args["publishableKey"] as? String) ?: ""
+      val apiKey = (args["apiKey"] as? String) ?: ""
       val gatewayMerchantId = (args["gatewayMerchantId"] as? String) ?: ""
 
-      if (publishableKey.isNotEmpty()) {
+      if (apiKey.isNotEmpty()) {
         tokenizationSpec.put("type", "PAYMENT_GATEWAY")
         val tokenParams = JSONObject()
         tokenParams.put("gateway", "stripe")
-        tokenParams.put("stripe:publishableKey", publishableKey)
+        tokenParams.put("stripe:apiKey", apiKey)
         tokenParams.put("stripe:version", "2020-08-27")
         if (gatewayMerchantId.isNotEmpty()) tokenParams.put("gatewayMerchantId", gatewayMerchantId)
         tokenizationSpec.put("parameters", tokenParams)

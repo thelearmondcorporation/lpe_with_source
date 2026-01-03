@@ -5,7 +5,7 @@ void main() {
   // Set example defaults for native pay merchant ids
   LpeWithSourceConfig.init(
     appleMerchantId: 'merchant.com.example',
-    googleGatewayMerchantId: 'exampleGatewayId',
+    googleMerchantId: 'exampleMerchantId',
   );
   runApp(const LpeDemoApp());
 }
@@ -57,10 +57,8 @@ class _DemoHomeState extends State<DemoHome> {
             ElevatedButton(
               onPressed: () async {
                 _addLog('Manual: opening paysheet (card)');
-                final res = await presentPaysheet(
+                final res = await Paysheet.instance.present(
                   context,
-                  publishableKey: 'pk_test_XXXXXXXXXXXXXXXX',
-                  clientSecret: 'pi_test_client_secret',
                   method: 'card',
                   amount: '9.99',
                 );
